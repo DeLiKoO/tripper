@@ -1,42 +1,22 @@
 {
   "root": "apps/frontend",
-  "sourceRoot": "apps/frontend/src",
   "projectType": "application",
-  "tags": [],
+  "sourceRoot": "apps/frontend/src",
   "targets": {
     "build": {
-      "executor": "@nxext/vite:build",
-      "outputs": ["{options.outputPath}"],
+      "executor": "@nxext/sveltekit:sveltekit",
       "options": {
-        "frameworkConfigFile": "@nxext/svelte/plugins/vite",
-        "outputPath": "dist/apps/frontend",
-        "assets": [
-          {
-            "glob": "/*",
-            "input": "./public/**",
-            "output": "./"
-          }
-        ],
-        "tsConfig": "apps/frontend/tsconfig.app.json"
-      },
-      "configurations": {
-        "production": {}
+        "command": "build"
       }
     },
     "serve": {
-      "executor": "@nxext/vite:dev",
+      "executor": "@nxext/sveltekit:sveltekit",
       "options": {
-        "frameworkConfigFile": "@nxext/svelte/plugins/vite",
-        "outputPath": "dist/apps/frontend",
-        "assets": [
-          {
-            "glob": "/*",
-            "input": "./public/**",
-            "output": "./"
-          }
-        ],
-        "tsConfig": "apps/frontend/tsconfig.app.json"
+        "command": "dev"
       }
+    },
+    "add": {
+      "executor": "@nxext/sveltekit:add"
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
@@ -44,21 +24,7 @@
       "options": {
         "lintFilePatterns": ["apps/frontend/**/*.{ts,svelte,spec.ts}"]
       }
-    },
-    "check": {
-      "executor": "@nrwl/workspace:run-commands",
-      "options": {
-        "command": "svelte-check",
-        "cwd": "apps/frontend"
-      }
-    },
-    "test": {
-      "executor": "@nrwl/jest:jest",
-      "outputs": ["coverage/apps/frontend"],
-      "options": {
-        "jestConfig": "apps/frontend/jest.config.js",
-        "passWithNoTests": true
-      }
     }
-  }
+  },
+  "tags": []
 }
