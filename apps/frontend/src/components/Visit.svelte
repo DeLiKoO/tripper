@@ -1,7 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import ObjData from '../models/ObjData';
-  import type { VisitData } from '../models/VisitData';
+  import VisitData from '../models/VisitData';
 
   let dispatch = createEventDispatcher<{
     createObject: VisitData;
@@ -16,13 +15,7 @@
   // Behavioral reactive values
   $: creating = !readonly && obj.id === undefined;
 
-  // Default object, if none is provided
-  export let obj: VisitData = {
-    class: ObjData.Type.VisitData,
-    label: 'Origin',
-    lat: 0,
-    lng: 0,
-  }
+  export let obj: VisitData = VisitData.newObject();
 
   function handleSubmit() {
     if (creating) {

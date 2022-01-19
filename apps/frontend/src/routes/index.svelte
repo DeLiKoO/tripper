@@ -28,6 +28,6 @@
 
 <h1>New Item</h1>
 <AddObjData
-  {onCreateTransportation}
-  {onCreateVisit}
+  on:createTransportation={onCreateTransportation}
+  on:createVisit={onCreateVisit}
 />

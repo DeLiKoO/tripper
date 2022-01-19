@@ -1,7 +1,6 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import ObjData from '../models/ObjData';
-  import type TransportationData from '../models/TransportationData';
+  import TransportationData from '../models/TransportationData';
 
   let dispatch = createEventDispatcher<{
     createObject: TransportationData;
@@ -16,22 +15,9 @@
   // Behavioral reactive values
   $: creating = !readonly && obj.id === undefined;
 
-  function newObject(): TransportationData {
-    const DEFAULT_VALUE: TransportationData = {
-      class: ObjData.Type.TransportationData,
-      mode: 'Car',
-      distance: 0,
-      distanceUnit: 'km',
-      estimatedDurationInMinutes: 0,
-    };
-    let instance = {};
-    Object.assign(instance, DEFAULT_VALUE);
-    delete instance['id'];
-    return instance as TransportationData;
-  }
 
   // Default object, if none is provided
-  export let obj = newObject();
+  export let obj = TransportationData.newObject();
 
   function handleSubmit() {
     if (creating) {

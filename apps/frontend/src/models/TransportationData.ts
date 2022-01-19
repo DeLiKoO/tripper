@@ -13,12 +13,30 @@ export interface TransportationData extends ObjData<ObjData.Type.TransportationD
 
 export namespace TransportationData {
 	export function from(obj: ObjData<ObjData.Type>) {
-		if(obj.class === ObjData.Type.TransportationData) {
+		if (obj.class === ObjData.Type.TransportationData) {
 			return obj as TransportationData;
 		} else {
 			return undefined;
 		}
 	}
+
+	export const DEFAULT_OBJECT: TransportationData = {
+		class: ObjData.Type.TransportationData,
+		mode: 'Car',
+		distance: 0,
+		distanceUnit: 'km',
+		estimatedDurationInMinutes: 0,
+	};
+
+	export function newObject(
+		from: TransportationData = DEFAULT_OBJECT
+	): TransportationData {
+		let instance = {};
+		instance = Object.assign(instance, from);
+		delete instance['id'];
+		return instance as TransportationData;
+	}
 }
+
 
 export default TransportationData;
