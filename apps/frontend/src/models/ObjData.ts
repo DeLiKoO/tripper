@@ -8,6 +8,7 @@ namespace ObjData {
 
 interface ObjData<T extends ObjData.Type> {
     'class': T;
+    id?: string;
 }
 
 

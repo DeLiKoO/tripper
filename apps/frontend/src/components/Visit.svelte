@@ -6,33 +6,46 @@
   let dispatch = createEventDispatcher<{
     createObject: VisitData;
     updateObject: VisitData;
+    deleteObject: VisitData;
   }>();
 
+  // Behavioral props
   export let locked: boolean = false;
-  export let creating: boolean = false;
+  export let readonly: boolean = false;
 
-  export let label: string;
-  export let lat: number;
-  export let lng: number;
+  // Behavioral reactive values
+  $: creating = !readonly && obj.id === undefined;
+
+  // Default object, if none is provided
+  export let obj: VisitData = {
+    class: ObjData.Type.VisitData,
+    label: 'Origin',
+    lat: 0,
+    lng: 0,
+  }
 
   function handleSubmit() {
-    const visitData: VisitData = {
-      class: ObjData.Type.VisitData,
-      label,
-      lat,
-      lng,
-    };
     if (creating) {
-      dispatch('createObject', visitData);
+      dispatch('createObject', obj);
     } else {
-      dispatch('updateObject', visitData);
+      dispatch('updateObject', obj);
     }
+  }
+
+  function handleDelete() {
+    dispatch('deleteObject', obj);
   }
 </script>
 
 Visit:
 <form on:submit|preventDefault={() => handleSubmit()}>
-  <input readonly={locked} placeholder="mode" bind:value={label} />
-  <input readonly={locked} type="number" bind:value={lat} step="0.000001" />
-  <input readonly={locked} type="number" bind:value={lng} step="0.000001" />
+  <input readonly={locked} placeholder="mode" bind:value={obj.label} />
+  <input readonly={locked} type="number" bind:value={obj.lat} step="0.000001" />
+  <input readonly={locked} type="number" bind:value={obj.lng} step="0.000001" />
+  {#if locked === false}
+    <input type="submit" value={creating ? 'Create' : 'Update'} />
+  {/if}
+  {#if locked === false && creating === false}
+    <input type="button" value={'Delete'} on:click={handleDelete} />
+  {/if}
 </form>

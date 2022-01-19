@@ -1,4 +1,4 @@
-import type ObjData from "./ObjData";
+import ObjData from "./ObjData";
 
 export interface TransportationData extends ObjData<ObjData.Type.TransportationData> {
 	mode: string;
@@ -9,6 +9,16 @@ export interface TransportationData extends ObjData<ObjData.Type.TransportationD
 	// fromTimezone: string;
 	// arrivalTime: Date;
 	// toTimezone: string;
+}
+
+export namespace TransportationData {
+	export function from(obj: ObjData<ObjData.Type>) {
+		if(obj.class === ObjData.Type.TransportationData) {
+			return obj as TransportationData;
+		} else {
+			return undefined;
+		}
+	}
 }
 
 export default TransportationData;
