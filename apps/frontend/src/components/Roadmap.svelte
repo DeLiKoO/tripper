@@ -1,25 +1,34 @@
 <script lang="ts">
-  import TransportationData from '../models/TransportationData';
+  import type TransportationData from '../models/TransportationData';
+  import type VisitData from '../models/VisitData';
   import Transportation from './Transportation.svelte';
   import Visit from './Visit.svelte';
-  import VisitData from '../models/VisitData';
+  import ObjData from '../models/ObjData';
 
   export let items = [];
 
-  const t = TransportationData.from;
-  const v = VisitData.from;
+  function onDeleteTransportation(e: CustomEvent<TransportationData>) {
+    items = items.filter(item => e.detail.id !== item.id);
+  }
+
+  function onDeleteVisit(e: CustomEvent<VisitData>) {
+    items = items.filter(item => e.detail.id !== item.id);
+  }
+
 </script>
 
 {#each items as item}
-  {#if t(item)}
+  {#if item.class === ObjData.Type.TransportationData}
     <Transportation
       obj={item}
       readonly={true}
+      on:deleteObject={onDeleteTransportation}
     />
-  {:else if v(item)}
+  {:else if item.class === ObjData.Type.VisitData}
     <Visit
       obj={item}
       readonly={true}
+      on:deleteObject={onDeleteVisit}
     />
   {/if}
 {:else}

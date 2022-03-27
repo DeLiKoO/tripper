@@ -1,14 +1,13 @@
 <script lang="ts">
-  import Transportation from './Transportation.svelte';
-  import Visit from './Visit.svelte';
-  import Tabs from '../../lib/tabs/Tabs.svelte';
+  import { createEventDispatcher } from 'svelte';
   import Tab from '../../lib/tabs/Tab.svelte';
   import TabList from '../../lib/tabs/TabList.svelte';
   import TabPanel from '../../lib/tabs/TabPanel.svelte';
+  import Tabs from '../../lib/tabs/Tabs.svelte';
   import TransportationData from '../models/TransportationData';
   import VisitData from '../models/VisitData';
-  import type ObjData from '../models/ObjData';
-import { createEventDispatcher } from 'svelte';
+  import Transportation from './Transportation.svelte';
+  import Visit from './Visit.svelte';
 
   // type CustomEventReceiver<T> = (e: CustomEvent<T>) => any;
   // type ObjDataEventReceiver<O extends ObjData<any>> = CustomEventReceiver<O>;
@@ -16,11 +15,10 @@ import { createEventDispatcher } from 'svelte';
   // export let onCreateTransportation: ObjDataEventReceiver<TransportationData>;
   // export let onCreateVisit: ObjDataEventReceiver<VisitData>;
 
-    let dispatch = createEventDispatcher<{
+  let dispatch = createEventDispatcher<{
     createTransportation: TransportationData;
     createVisit: VisitData;
   }>();
-
 </script>
 
 <Tabs>
@@ -30,16 +28,22 @@ import { createEventDispatcher } from 'svelte';
   </TabList>
 
   <TabPanel>
-    <Transportation readonly={false} on:createObject={e => {
-      const detail = TransportationData.newObject(e.detail);
-      dispatch('createTransportation', detail);
-    }} />
+    <Transportation
+      readonly={false}
+      on:createObject={(e) => {
+        const detail = TransportationData.newObject(e.detail);
+        dispatch('createTransportation', detail);
+      }}
+    />
   </TabPanel>
 
   <TabPanel>
-    <Visit readonly={false} on:createObject={e => {
-      const detail = VisitData.newObject(e.detail);
-      dispatch('createVisit', detail);
-    }} />
+    <Visit
+      readonly={false}
+      on:createObject={(e) => {
+        const detail = VisitData.newObject(e.detail);
+        dispatch('createVisit', detail);
+      }}
+    />
   </TabPanel>
 </Tabs>

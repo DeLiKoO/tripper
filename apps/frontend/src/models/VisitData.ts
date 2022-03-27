@@ -4,6 +4,7 @@ export interface VisitData extends ObjData<ObjData.Type.VisitData> {
 	label: string;
 	lat: number;
 	lng: number;
+	timezone: string;
 }
 
 export namespace VisitData {
@@ -11,7 +12,7 @@ export namespace VisitData {
 		if (obj.class === ObjData.Type.VisitData) {
 			return obj as VisitData;
 		} else {
-			return undefined;
+			throw new Error('obj.class !== ObjData.Type.VisitData');
 		}
 	}
 
@@ -20,6 +21,7 @@ export namespace VisitData {
 		label: 'Origin',
 		lat: 0,
 		lng: 0,
+		timezone: 'UTC',
 	};
 
 	export function newObject(from: VisitData = DEFAULT_OBJECT): VisitData {

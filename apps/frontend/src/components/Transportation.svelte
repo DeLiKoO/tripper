@@ -15,7 +15,6 @@
   // Behavioral reactive values
   $: creating = !readonly && obj.id === undefined;
 
-
   // Default object, if none is provided
   export let obj = TransportationData.newObject();
 

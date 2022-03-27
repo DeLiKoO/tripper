@@ -35,6 +35,7 @@ Visit:
   <input readonly={locked} placeholder="mode" bind:value={obj.label} />
   <input readonly={locked} type="number" bind:value={obj.lat} step="0.000001" />
   <input readonly={locked} type="number" bind:value={obj.lng} step="0.000001" />
+  <input readonly={locked} type="text" bind:value={obj.timezone} />
   {#if locked === false}
     <input type="submit" value={creating ? 'Create' : 'Update'} />
   {/if}

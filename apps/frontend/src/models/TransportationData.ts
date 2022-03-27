@@ -1,14 +1,13 @@
 import ObjData from "./ObjData";
+import VisitData from "./VisitData";
 
 export interface TransportationData extends ObjData<ObjData.Type.TransportationData> {
 	mode: string;
 	distance: number;
 	distanceUnit: "mi" | "km";
 	estimatedDurationInMinutes: number;
-	// departureTime: Date;
-	// fromTimezone: string;
-	// arrivalTime: Date;
-	// toTimezone: string;
+	from: VisitData;
+	to: VisitData;
 }
 
 export namespace TransportationData {
@@ -16,7 +15,7 @@ export namespace TransportationData {
 		if (obj.class === ObjData.Type.TransportationData) {
 			return obj as TransportationData;
 		} else {
-			return undefined;
+			throw new Error('obj.class !== ObjData.Type.TransportationData');
 		}
 	}
 
@@ -26,6 +25,20 @@ export namespace TransportationData {
 		distance: 0,
 		distanceUnit: 'km',
 		estimatedDurationInMinutes: 0,
+		from: VisitData.newObject({
+			class: ObjData.Type.VisitData,	
+			label: 'Origin',
+			lat: 0,
+			lng: 0,
+			timezone: 'UTC',
+		}),
+		to: VisitData.newObject({
+			class: ObjData.Type.VisitData,	
+			label: 'Origin',
+			lat: 0,
+			lng: 0,
+			timezone: 'UTC',
+		}),
 	};
 
 	export function newObject(
