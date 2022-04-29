@@ -9,6 +9,12 @@
         "command": "build"
       }
     },
+    "test": {
+      "executor": "@nxext/vitest:vitest",
+      "options": {
+        "command": "run"
+      }
+    },
     "serve": {
       "executor": "@nxext/sveltekit:sveltekit",
       "options": {
